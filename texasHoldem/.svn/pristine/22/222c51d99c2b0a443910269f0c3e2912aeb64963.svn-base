@@ -1,0 +1,29 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Logiikka.tarkastajat;
+
+import Logiikka.Kasi;
+import Logiikka.Pakka;
+import Logiikka.Poyta;
+
+/**
+ *
+ * @author Tero
+ */
+public class Varisuora implements Tarkistettava {
+
+    public static final int ARVO = 9;
+
+    @Override
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
+        if (new Vari().tarkista(maarat, kasi) == Vari.ARVO && new Suora().tarkista(maarat, kasi) == Suora.ARVO) {
+            if (kasi.getKortti(4).getArvo() == 1) {
+                return Kuningasvarisuora.ARVO;
+            }
+            return ARVO;
+        }
+        return 0;
+    }
+}

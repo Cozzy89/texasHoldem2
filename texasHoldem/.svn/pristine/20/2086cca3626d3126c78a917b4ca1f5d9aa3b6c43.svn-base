@@ -1,0 +1,35 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tarkistajat;
+
+import logiikka.Kasi;
+
+/**
+ *
+ * @author Tero
+ */
+public class Neloset implements Tarkistettava {
+    public static final int ARVO = 8;
+    @Override
+    public int tarkista(int[] maarat, Kasi kasi){
+        int neloset = Tarkastaja.tarkistaMaaralla(maarat,4,0);
+        if(neloset != -1){
+            jarjesta(neloset, kasi);
+            //kasi.setTeksti("Neloset, "+Kortti.korttiArvoNimet[neloset]);
+            return ARVO;
+        }
+        return 0;
+    }
+    
+    public static void jarjesta(int neloset, Kasi kasi){
+        int paikka = 0;
+        for(int i=0;i<kasi.getMaara();i++){
+            if(kasi.getKortti(i).getArvo() == neloset){
+                kasi.vaihdaPaikat(i, paikka);
+                paikka++;
+            }
+        }
+    }
+}

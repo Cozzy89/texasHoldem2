@@ -1,0 +1,58 @@
+package Logiikka;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import Käyttöliittymä.Pelipöytä;
+/**
+ *
+ * @author Teemu
+ */
+public class Peli {
+    Pakka pakka;
+    Pelipöytä pelipöytä;
+    
+    public Peli(Pelipöytä pelipöytä) {
+        this.pelipöytä = pelipöytä;
+        pelaa();
+    }
+    /**
+     *
+     */
+    public void pelaa(){
+        Pelaaja pelaaja1 = new Pelaaja(100, "Teemu");
+        uusiPakka();
+        Kortti kortti;
+        kortti = pakka.Jaa();
+        System.out.println(kortti.getMaa(false)+" "+kortti.getArvo());
+        System.out.println(pelaaja1.getNimi());
+    
+    }
+    
+    /**
+     *
+     * @param pelaaja
+     */
+    public void tulostaKasi(Pelaaja pelaaja) {
+        System.out.print(pelaaja.getNimi() + ": ");
+        for (int i = 0; i < 2; i++) {
+            Kortti kortti = pelaaja.getKortti(i);
+            if (kortti == null) {
+                break;
+            }
+            System.out.print((i != 0 ? "," : "") + kortti.getArvo() + kortti.getMaa(true));
+        }
+        System.out.println("");
+
+
+    }
+    /**
+     *
+     */
+    public void uusiPakka() {
+        pakka = new Pakka();
+        pakka.Sekoita();
+    }
+    
+}

@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Pelin pelaajat.
+ *
+ * @author Teemu
+ */
+public class Pelaaja {
+
+    private int raha;
+    private String nimi;
+    private Kasi kasi;
+    private int korotus;
+    private boolean toiminut;
+    private boolean luovuttanut;
+
+
+}

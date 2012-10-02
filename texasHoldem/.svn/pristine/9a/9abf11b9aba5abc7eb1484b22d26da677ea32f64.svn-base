@@ -1,0 +1,50 @@
+package Logiikka;
+
+/**
+ *
+ * @author Teemu
+ */
+public class Poyta {
+
+    private Kortti[] kortit;
+    private int tilaa, montakoKorttia;
+/**
+ * Konstruktori
+ * @param tilaa 
+ */
+    public Poyta(int tilaa) {
+        this.tilaa = tilaa;
+        tyhjennaPoyta();
+    }
+/**
+ * Tyhjentaa pöydän.
+ */
+    public void tyhjennaPoyta() {
+        kortit = new Kortti[tilaa];
+    }
+/**
+ * Lisätään kortti pöydälle, jos ei ole jo täynnä.
+ * @param kortti
+ * @return 
+ */
+    public boolean lisaaKortti(Kortti kortti) {
+
+        if (montakoKorttia < tilaa) {
+            kortit[montakoKorttia] = kortti;
+            montakoKorttia++;
+            return true;
+        }
+        return false;
+    }
+/**
+ * Palautetaan kortti pöydältä halutusta kohdasta.
+ * @param index
+ * @return 
+ */
+    public Kortti getKortti(int index){
+        if(index>=0 && index<tilaa) {
+            return kortit[index];
+        }
+        return null;
+    }
+}
