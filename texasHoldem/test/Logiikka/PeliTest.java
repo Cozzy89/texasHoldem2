@@ -56,7 +56,7 @@ public class PeliTest {
         System.out.println("tulostaKasi");
         Pelaaja pelaaja = null;
         Peli instance = null;
-        instance.tulostaKasi(pelaaja);
+
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

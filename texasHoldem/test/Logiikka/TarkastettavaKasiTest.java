@@ -44,10 +44,10 @@ public class TarkastettavaKasiTest {
         System.out.println("laitaKateenKaikkiKortit");
         Kasi kasi = null;
         Poyta poyta = null;
-        TarkastettavaKasi instance = null;
+
         Kortti[] expResult = null;
-        Kortti[] result = instance.laitaKateenKaikkiKortit(kasi, poyta);
-        assertArrayEquals(expResult, result);
+
+
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -59,10 +59,10 @@ public class TarkastettavaKasiTest {
     public void testGetTarkistettavaKortti() {
         System.out.println("getTarkistettavaKortti");
         int i = 0;
-        TarkastettavaKasi instance = null;
+
         Kortti expResult = null;
-        Kortti result = instance.getTarkistettavaKortti(i);
-        assertEquals(expResult, result);
+
+
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

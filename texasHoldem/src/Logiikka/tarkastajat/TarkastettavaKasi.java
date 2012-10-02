@@ -42,7 +42,7 @@ public class TarkastettavaKasi {
         }
         kortit[i++] = kasi.getKortti(0);
         kortit[i] = kasi.getKortti(1);
-        kortteja = +2;
+        kortteja += 2;
     }
 
     public Kortti getKortti(int i) {

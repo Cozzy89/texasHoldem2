@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Logiikka;
+package Logiikka.tarkastajat;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,9 +15,9 @@ import static org.junit.Assert.*;
  *
  * @author Teemu
  */
-public class TarkastajaTest {
+public class VarisuoraTest {
     
-    public TarkastajaTest() {
+    public VarisuoraTest() {
     }
     
     @BeforeClass
@@ -37,29 +37,17 @@ public class TarkastajaTest {
     }
 
     /**
-     * Test of vertaaKasienArvoja method, of class Tarkastaja.
+     * Test of tarkista method, of class Varisuora.
      */
     @Test
-    public void testVertaaKasienArvoja() {
-        System.out.println("vertaaKasienArvoja");
-
+    public void testTarkista() {
+        System.out.println("tarkista");
+        int[] maarat = null;
+        TarkastettavaKasi kasi = null;
+        Varisuora instance = new Varisuora();
         int expResult = 0;
-
-        assertEquals(expResult, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of tulostaKasi method, of class Tarkastaja.
-     */
-    @Test
-    public void testTulostaKasi() {
-        System.out.println("tulostaKasi");
-
-        String expResult = "";
-
-        assertEquals(expResult, 0);
+        int result = instance.tarkista(maarat, kasi);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
