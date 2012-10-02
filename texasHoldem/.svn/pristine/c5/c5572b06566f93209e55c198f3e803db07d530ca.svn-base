@@ -1,0 +1,29 @@
+
+public class Kortti {
+
+    private String[] maat = {"Hertta", "Ruutu", "Risti", "Pata"};
+    private String[] lyhmaat = {"H", "D", "C", "S"};
+    private int maa;
+    private int arvo;
+    private int numero;
+
+    public Kortti(int numero) {
+        this.numero = numero;
+        maa = numero % 4;
+        arvo = numero / 4 + 1;
+
+    }
+
+    public Kortti(int arvo, int maa) {
+        this.arvo = arvo;
+        this.maa = maa;
+    }
+
+    public int getArvo() {
+        return arvo;
+    }
+
+    public int getMaa() {
+        return maa;
+    }
+}

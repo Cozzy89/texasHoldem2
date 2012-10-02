@@ -1,0 +1,17 @@
+
+public class Kasi {
+
+    private Kortti[] kasi;
+
+    public Kasi() {
+        kasi = new Kortti[5];
+    }
+    
+    public void tyhjennaKasi(){
+        
+        
+    }
+    public Boolean lisaaKortti(Kortti kortti){
+        return true;
+    }
+}

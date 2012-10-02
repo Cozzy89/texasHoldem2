@@ -1,0 +1,78 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Logiikka;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author Teemu
+ */
+public class PoytaTest {
+    
+    public PoytaTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of tyhjennaPoyta method, of class Poyta.
+     */
+    @Test
+    public void testTyhjennaPoyta() {
+        System.out.println("tyhjennaPoyta");
+        Poyta instance = null;
+        instance.tyhjennaPoyta();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of lisaaKortti method, of class Poyta.
+     */
+    @Test
+    public void testLisaaKortti() {
+        System.out.println("lisaaKortti");
+        Kortti kortti = null;
+        Poyta instance = null;
+        instance.lisaaKortti(kortti);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getKortti method, of class Poyta.
+     */
+    @Test
+    public void testGetKortti() {
+        System.out.println("getKortti");
+        int index = 0;
+        Poyta instance = null;
+        Kortti expResult = null;
+        Kortti result = instance.getKortti(index);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+}

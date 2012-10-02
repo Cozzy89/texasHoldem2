@@ -1,0 +1,90 @@
+package Logiikka;
+
+
+/**
+ *
+ * @author Teemu
+ */
+public class Kasi {
+
+    private Kortti[] kasi;
+
+    /**
+     *
+     */
+    public Kasi() {
+        kasi = new Kortti[2];
+    }
+    
+    /**
+     *
+     * @param kortti
+     */
+    public void lisaaKortti(Kortti kortti){
+        for(int i=0; i<kasi.length; i++){
+            if(kasi[i]==null){
+                kasi[i]=kortti;
+                return;
+            }
+        }
+    }
+    public int[] jarjestaArvollaSuurimmastaPienimpaan(Kasi kasiKortit, Poyta poytaKortit){
+        int[] kaikkiKortit = new int[7];
+        Kortti kortti;
+        for(int i=0; i<2; i++){
+            kortti = kasiKortit.getKortti(i);
+            kaikkiKortit[i]=kortti.getArvo();
+        }
+        int j=2;
+        for(int i=0; i<5; i++){
+            kortti=poytaKortit.getKortti(i);
+            kaikkiKortit[j]=kortti.getArvo();
+            j++;
+        }
+        java.util.Arrays.sort(kaikkiKortit);
+        return kaikkiKortit;
+
+    }
+
+    public void jarjestaArvollaPienimmastaSuurimpaan(){
+        
+    }
+    public Kortti[] otaKateenKaikkiKortit(Kasi kasi, Poyta poyta){
+        Kortti[] kaikkiKortit = new Kortti[7];
+        Kortti kortti;
+        for(int i=0; i<2; i++){
+            kortti = kasi.getKortti(i);
+            kaikkiKortit[i]=kortti;
+        }
+        int j=2;
+        for(int i=0; i<5; i++){
+            kortti=poyta.getKortti(i);
+            kaikkiKortit[j]=kortti;
+            j++;
+        }
+        return kaikkiKortit;
+        
+    }
+    
+    /**
+     *
+     * @param i
+     * @return
+     */
+    public Kortti getKortti(int i){
+        return kasi[i];
+    }
+
+    public int getMaara() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void vaihdaPaikat(int i, int i0) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public void siirraLoppuun(int i) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
+}

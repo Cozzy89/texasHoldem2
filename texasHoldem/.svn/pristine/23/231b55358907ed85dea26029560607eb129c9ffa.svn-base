@@ -1,0 +1,318 @@
+package Logiikka;
+
+/**
+ * Tarkastaja tutkii käden arvon.
+ */
+public class Tarkastaja {
+    
+    
+
+ 
+    /**
+     * Tarkistaa suoran.
+     *
+     * @param kasi
+     * @return
+     */
+    private static int[] tarkistaSuora(TarkastettavaKasi kasi) {
+        int[] arvJar = arvojenJarjestys(kasi);
+        int[] arvot = new int[6];
+        
+        int[] jarKasi = jarjestaKasi(kasi);
+        int kohta = 0;
+        int montakoPerakkain=1;
+        for (int i = 0; i < 6; i++) {
+            if (jarKasi[i] != jarKasi[i + 1] - 1) {
+                if(montakoPerakkain<5){
+                    kohta=i+1;
+                    montakoPerakkain=1; 
+                }
+                if(kohta==3){
+                    return null;
+                }
+                continue;
+            }
+            montakoPerakkain++;
+            
+        }
+
+
+       // if(montakoPerakkain==6){
+//            arvot[0] = 5;
+            //arvot[1] = arvJar[kohta+1];
+            //arvot[2] = arvJar[kohta+2];
+            //arvot[3] = arvJar[kohta+3];
+            //arvot[4] = arvJar[kohta+4];
+            //arvot[5] = arvJar[kohta+5];
+         //   return arvot;
+      //  }
+      //  if(montakoPerakkain==7){
+      //      arvot[0] = 5;
+            //arvot[1] = arvJar[2];
+            //arvot[2] = arvJar[3];
+            //arvot[3] = arvJar[4];
+            //arvot[4] = arvJar[5];
+            //arvot[5] = arvJar[6];
+       //     return arvot;
+      //  }
+        arvot[0] = 5;
+        return arvot;
+    }
+
+    /**
+     * Tarkistaa värin.
+     *
+     * @param kasi
+     * @return
+     */
+    private static int[] tarkistaVari(TarkastettavaKasi kasi) {
+        int[] arvJar = arvojenJarjestys(kasi);
+        int[] arvot = new int[6];
+        int[] jarKasi = jarjestaKasi(kasi);
+        int kohta = 0;
+        int montakoSamaa=1;
+        for (int i = 0; i < 6; i++) {
+            if (kasi.getTarkistettavaKortti(i).getMaa(true).equals(kasi.getTarkistettavaKortti(i + 1).getMaa(true))) {
+                montakoSamaa++;
+            
+        }
+        arvot[0] = 6;
+        arvot[1] = arvJar[0];
+        arvot[2] = arvJar[1];
+        arvot[3] = arvJar[2];
+        arvot[4] = arvJar[3];
+        arvot[5] = arvJar[4];
+        
+        return arvot;
+    }
+        return arvot;
+    }
+    /**
+     * Tarkistaa hain, parin, kaksi paria, kolmoset, täyskäden ja neloset.
+     *
+     * @param kasi
+     * @return
+     */
+    private static int[] tarkistaMuut(TarkastettavaKasi kasi) {
+        int samojaKortteja1 = 1;
+        int samojaKortteja2 = 1;
+        int suuriRyhmaArvo = 0;
+        int pieniRyhmaArvo = 0;
+        int[] arvJar = arvojenJarjestys(kasi);
+        int[] arvot = new int[6];
+        int[] samojaKortteja = samojaKortteja(kasi);
+        
+        for (int i = 13; i >= 1; i--) {
+            if (samojaKortteja[i] > samojaKortteja1) {
+                if (samojaKortteja1 != 1) {
+                    samojaKortteja2 = samojaKortteja1;
+                    pieniRyhmaArvo = suuriRyhmaArvo;
+                }
+                samojaKortteja1 = samojaKortteja[i];
+                suuriRyhmaArvo = i;
+            } else if (samojaKortteja[i] > samojaKortteja2) {
+                samojaKortteja2 = samojaKortteja[i];
+                pieniRyhmaArvo = i;
+           }
+        }
+
+        if (samojaKortteja1 == 2 && samojaKortteja2 == 1) {
+            arvot[0] = 2;
+            arvot[1] = suuriRyhmaArvo;
+            arvot[2] = arvJar[0];
+            arvot[3] = arvJar[1];
+            arvot[4] = arvJar[2];
+            return arvot;
+        }
+        else if (samojaKortteja1 == 2 && samojaKortteja2 == 2) {
+            arvot[0] = 3;
+            arvot[1] = suuriRyhmaArvo > pieniRyhmaArvo ? suuriRyhmaArvo : pieniRyhmaArvo;
+            arvot[2] = suuriRyhmaArvo < pieniRyhmaArvo ? suuriRyhmaArvo : pieniRyhmaArvo;
+            arvot[3] = arvJar[0];
+            return arvot;
+        }
+        else if (samojaKortteja1 == 3) {
+            arvot[0] = 4;
+            arvot[1] = suuriRyhmaArvo;
+            arvot[2] = arvJar[0];
+            arvot[3] = arvJar[1];
+            return arvot;
+        }
+        else if (samojaKortteja1 == 3 && (samojaKortteja2 == 2 || samojaKortteja2 ==3)) {
+            arvot[0] = 7;
+            arvot[1] = suuriRyhmaArvo;
+            arvot[2] = pieniRyhmaArvo;
+            return arvot;
+        }
+        else if (samojaKortteja1 == 4) {
+            arvot[0] = 8;
+            arvot[1] = suuriRyhmaArvo;
+            arvot[2] = arvJar[0];
+            return arvot;
+        }
+        else if(samojaKortteja1 == 1){
+            arvot[0] = 1;
+            arvot[1] = arvJar[0];
+            arvot[2] = arvJar[1];
+            arvot[3] = arvJar[2];
+            arvot[4] = arvJar[3];
+            arvot[5] = arvJar[4];
+
+            return arvot;
+        }
+        return null;
+
+    }
+
+    /**
+     * Tarkistaa värisuoran.
+     *
+     * @param kasi
+     * @return
+     */
+    private static int[] tarkistaVarisuora(TarkastettavaKasi kasi) {
+        int a = 0;
+        int[] arvJar = arvojenJarjestys(kasi);
+        int[] arvot = new int[6];
+        for (int i = 0; i < 4; i++) {
+            if (!kasi.getTarkistettavaKortti(i).getMaa(true).equals(kasi.getTarkistettavaKortti(i + 1).getMaa(true))) {
+                return null;
+            }
+            a++;
+        }
+        int[] jarKasi = jarjestaKasi(kasi);
+        for (int i = 0; i < 4; i++) {
+            if (jarKasi[i] != jarKasi[i + 1] - 1) {
+                return null;
+            }
+            a++;
+        }
+        if (a == 8) {
+            arvot[0] = 9;
+            return arvot;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Järjestää kortit.
+     */
+    private static int[] jarjestaKasi(TarkastettavaKasi kasi) { // kaden järjestäminen
+        Kortti kortti;
+        int[] jarjestettyKasi = new int[7];
+        for (int i = 0; i < 7; i++) {
+            kortti = kasi.getTarkistettavaKortti(i);
+            jarjestettyKasi[i] = kortti.getArvo();
+        }
+        java.util.Arrays.sort(jarjestettyKasi);
+        return jarjestettyKasi;
+    }
+
+    /**
+     * Tarkistaa samanarvoisten korttien määrän.
+     *
+     * @param kasi
+     * @return
+     */
+    private static int[] samojaKortteja(TarkastettavaKasi kasi) {
+        int[] arvot = new int[14];
+        for (int i = 0; i < 14; i++) {
+            arvot[i] = 0;
+        }
+        for (int i = 0; i < 7; i++) {
+            arvot[kasi.getTarkistettavaKortti(i).getArvo()]++;
+        }
+        return arvot;
+    }
+/**
+ * Asettaa kortit arvojärjestykseen.
+ * @param kasi
+ * @return 
+ */
+    private static int[] arvojenJarjestys(TarkastettavaKasi kasi) {
+        int[] arvojenJarjestys = new int[7];
+        int[] arvot = samojaKortteja(kasi);
+        int indeksi = 0;
+        if (arvot[1] == 1) {
+            arvojenJarjestys[indeksi] = 14;
+            indeksi++;
+        }
+        for (int i = 13; i >= 2; i--) {
+            if (arvot[i] == 1) {
+                arvojenJarjestys[indeksi] = i;
+                indeksi++;
+            }
+        }
+        return arvojenJarjestys;
+    }
+/**
+ * Antaa kädelle tietyn arvon.
+ * @param kasi
+ * @return 
+ */
+    private static int[] kadenArvo(TarkastettavaKasi kasi) {
+
+       // if(tarkistaSuora(kasi)!=null && tarkistaVarisuora(kasi)==null){
+        //    return tarkistaSuora(kasi);
+       // }
+     //   if(tarkistaVari(kasi)!=null && tarkistaVarisuora(kasi)==null){
+     //       return tarkistaVari(kasi);
+     //   }
+        if(tarkistaVarisuora(kasi)!=null){
+            return tarkistaVarisuora(kasi);
+        }
+
+        return tarkistaMuut(kasi);
+    }
+/**
+ * Vertaa kahden käden arvoja, palauttaa 1 jos ensimmäinen käsi voittaa, -1 jos toinen ja 0 jos tulee tasapeli.
+ * @param kasi1
+ * @param kasi2
+ * @return 
+ */
+    public static int vertaaKasienArvoja(TarkastettavaKasi kasi1, TarkastettavaKasi kasi2) {
+        
+        for(int i=0; i<6; i++){
+            if(kadenArvo(kasi1)[i] > kadenArvo(kasi2)[i]){
+                return 1;
+            }
+            else if(kadenArvo(kasi1)[i] != kadenArvo(kasi2)[i]){
+                return -1;
+            }
+        }
+        return 0;
+   
+}
+    public static String tulostaKasi(TarkastettavaKasi kasi){
+        if(kadenArvo(kasi)[0]==1){
+            return "hai"+ kadenArvo(kasi)[1];
+        }
+        if(kadenArvo(kasi)[0]==2){
+            return "pari" + kadenArvo(kasi)[1];
+        }
+        if(kadenArvo(kasi)[0]==3){
+            return "2paria"+ kadenArvo(kasi)[1];
+        }
+        if(kadenArvo(kasi)[0]==4){
+            return "kolmoset"+ kadenArvo(kasi)[1];
+        }
+       // if(kadenArvo(kasi)[0]==5){
+       //     return "suora";
+       // }
+        //if(kadenArvo(kasi)[0]==6){
+        //    return "vari";
+       // }
+        if(kadenArvo(kasi)[0]==7){
+            return "täyskäsi"+ kadenArvo(kasi)[1];
+        }
+        if(kadenArvo(kasi)[0]==8){
+            return "neloset"+ kadenArvo(kasi)[1];
+        }
+        if(kadenArvo(kasi)[0]==9){
+            return "värisuora"+ kadenArvo(kasi)[1];
+        }
+        return "voi ei!";
+    }
+    
+}
