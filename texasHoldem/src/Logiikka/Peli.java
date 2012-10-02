@@ -75,7 +75,7 @@ public class Peli {
         }
 
         for(int i=0; i<5; i++){
-            System.out.print(poyta.getKortti(i).getMaa(true)+poyta.getKortti(i).getArvo()+", ");
+            System.out.print(Kortti.korttiArvot[poyta.getKortti(i).getArvo()]+poyta.getKortti(i).getMaa(true)+", ");
         }
         
         Tarkastaja tarkastaja = new Tarkastaja();
@@ -87,7 +87,7 @@ public class Peli {
             tulostaKasi(tarkastettavatKadet[i]);
         }
         TodennakoisyysTarkistaja tnTarkistaja = new TodennakoisyysTarkistaja();
-        System.out.println(pelaajat.get(0).getKasi().getKortti(0).getArvo()+" "+pelaajat.get(0).getKortti(1).getArvo());
+        System.out.println(Kortti.korttiArvot[pelaajat.get(0).getKasi().getKortti(0).getArvo()]+" "+Kortti.korttiArvot[pelaajat.get(0).getKortti(1).getArvo()]);
         System.out.println(tnTarkistaja.TarkistaTodennakoisyysEnnenFloppia(pelaajat.get(0).getKasi()));
         if(tnTarkistaja.milloinPeliinMukaan(pelaajat.get(0).getKasi())){
             System.out.println("pelaa");

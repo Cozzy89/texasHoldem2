@@ -101,7 +101,7 @@ public class TarkastettavaKasi {
 
     public void siirraAlkuun(int paikasta){
         Kortti apu = kortit[paikasta];
-        for(int i=paikasta; i>0;i++){
+        for(int i=paikasta; i>0; i++){
             kortit[i] = kortit[i-1];
         }
         kortit[0] = apu;
