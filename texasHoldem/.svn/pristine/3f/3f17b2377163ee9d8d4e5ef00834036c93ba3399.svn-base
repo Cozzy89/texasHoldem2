@@ -1,0 +1,63 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Käyttöliittymä;
+
+import Logiikka.Kortti;
+import Logiikka.Pelaaja;
+import Logiikka.Peli;
+import java.util.Scanner;
+/**
+ *
+ * @author Teemu
+ */
+public class Pelipöytä {
+    Peli peli;
+    private static Scanner lukija = new Scanner(System.in);
+    
+    public static void main(String[] args){
+        Pelipöytä pelipöytä = new Pelipöytä();
+        
+    }
+    public Pelipöytä() {
+        peli = new Peli(this);
+    }
+    /**
+ * Kysyy kysymyksen ja pyytää siihen vastaukseski int.
+ * @param kysymys
+ * @return int
+ */
+    public static int kysyInt(String kysymys) {
+        while (true) {
+            System.out.println(kysymys);
+            try {
+                return Integer.parseInt(lukija.nextLine());
+
+            } catch (NumberFormatException e) {
+                System.out.println("Ei kelpaa!");
+            }
+        }
+
+    }
+/**
+ * Kysyy kysymyksen ja pyytää siihen vastaukseksi String.
+ * @param kysymys
+ * @return String
+ */
+    public static String kysyString(String kysymys) {
+
+        System.out.println(kysymys);
+
+        return lukija.nextLine();
+
+
+    }
+    /**
+ * Tulostaa pelaajan rahamäärän.
+ * @param pelaaja 
+ */
+    public void tulostaRaha(Pelaaja pelaaja) {
+        System.out.println(pelaaja.getNimi() + ": Rahamäärä on: " + pelaaja.getRaha());
+    }
+}

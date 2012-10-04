@@ -1,0 +1,51 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Logiikka.tarkastajat;
+
+/**
+ *
+ * @author Teemu
+ */
+public class Varisuora implements Tarkistettava {
+
+    public static final int ARVO = 9;
+
+    @Override
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
+        int loytynyt = 0;
+        int maara = 0;
+        kasi.jarjestaArvollaSuurimmastaPienimpaan();
+        for (int i = 0; i < kasi.getMaara()-1; i++) {
+            if (kasi.getKortti(i).getArvo() - 1 == kasi.getKortti(i+1).getArvo() && kasi.getKortti(i).getMaa() == kasi.getKortti(i+1).getMaa()) {
+                maara++;
+                loytynyt++;
+                if (maara == 5) {
+                    break;
+                }
+            } else if (loytynyt >= 3) {
+                break;
+            } else {
+                maara = 0;
+            }
+        }
+        if (maara == 4 && 
+                kasi.getKortti(kasi.getMaara()-1).getArvo() == 0 && 
+                kasi.getKortti(0).getArvo() == 12 && 
+                kasi.getKortti(1).getArvo() == 11 && 
+                kasi.getKortti(2).getArvo() == 10 && 
+                kasi.getKortti(kasi.getMaara()-1).getMaa() == kasi.getKortti(0).getMaa()){
+            maara++;
+        }
+        if (maara == 5) {
+            Suora.jarjesta(kasi);
+            if (kasi.getKortti(4).getArvo() == 1) {
+                return Kuningasvarisuora.ARVO;
+            }
+            return ARVO;
+        }
+        return 0;
+    }
+
+}
