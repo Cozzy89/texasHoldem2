@@ -13,15 +13,9 @@ public class Hai implements Tarkistettava {
     public static final int ARVO = 1;
 
     @Override
-    public int[] tarkista(int[] maarat, TarkastettavaKasi kasi) {
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
         jarjesta(kasi);
-        int[] arvot = new int[6];
-        arvot[0] = ARVO;
-        for(int i=1; i<6; i++){
-            arvot[i] = kasi.getKortti(i-1).getArvo();
-        }
-        
-        return arvot;
+        return ARVO;
     }
 
     public static void jarjesta(TarkastettavaKasi kasi) {

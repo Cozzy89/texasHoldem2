@@ -15,29 +15,22 @@ public class Vari implements Tarkistettava {
     public static final int ARVO = 6;
 
     @Override
-    public int[] tarkista(int[] maarat, TarkastettavaKasi kasi) {
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
         int[] maat = new int[4];
-        int[] arvot = new int[6];
         for (int i = 0; i < kasi.getMaara(); i++) {
             Kortti kortti = kasi.getKortti(i);
             if (kortti == null) {
-                arvot[0] = 0;
-                return arvot;
+                return 0;
             }
             maat[kortti.getMaa()]++;
         }
         for (int i = 0; i < maat.length; i++) {
             if (maat[i] >= 5) {
                 jarjesta(i, kasi);
-                arvot[0] = ARVO;
-                for(int j=1; j<6; j++){
-                    arvot[j] = kasi.getKortti(j-1).getArvo();
-                }
-                return arvot;
+                return ARVO;
             }
         }
-        arvot[0] = 0;
-        return arvot;
+        return 0;
     }
 
     public static void jarjesta(int maa, TarkastettavaKasi kasi) {

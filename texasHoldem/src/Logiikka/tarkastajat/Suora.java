@@ -7,10 +7,9 @@ public class Suora implements Tarkistettava {
     public static final int ARVO = 5;
 
     @Override
-    public int[] tarkista(int[] maarat, TarkastettavaKasi kasi) {
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
         int loytynyt = 0;
         int maara = 0;
-        int[] arvot = new int[6];
         for (int i = maarat.length - 1; i >= 0; i--) {
             if (maarat[i] == 1) {
                 maara++;
@@ -29,14 +28,9 @@ public class Suora implements Tarkistettava {
         }
         if (maara == 5) {
             jarjesta(kasi);
-            arvot[0] = ARVO;
-            for(int i=1; i<6; i++){
-                arvot[i] = kasi.getKortti(i-1).getArvo();
-            }
-            return arvot;
+            return ARVO;
         }
-        arvot[0] = 0;
-        return arvot;
+        return 0;
     }
 
     public static void jarjesta(TarkastettavaKasi kasi) {

@@ -16,7 +16,7 @@ import Logiikka.Poyta;
 public class TarkastettavaKasi {
 
     private Kortti[] kortit;
-    private int[] arvo;
+    private int arvo;
     private int kortteja;
 
     public TarkastettavaKasi(Kasi kasi, Poyta poyta) {
@@ -44,14 +44,11 @@ public class TarkastettavaKasi {
         return kortit[i];
     }
 
-    public void setArvo(int[] arvo) {
+    public void setArvo(int arvo) {
         this.arvo = arvo;
     }
 
     public int getArvo() {
-        return arvo[0];
-    }
-    public int[] getArvot() {
         return arvo;
     }
 
@@ -142,5 +139,26 @@ public class TarkastettavaKasi {
 
     public int getMaara() {
         return kortteja;
+    }
+    
+    public int vertaa(TarkastettavaKasi kasi){
+        if(this.arvo > kasi.getArvo()){
+            return 1;
+        } else if(this.arvo < kasi.getArvo()){
+            return -1;
+        } else {
+            return vertaaKortit(kasi);
+        }
+    }
+    
+    private int vertaaKortit(TarkastettavaKasi kasi){
+        for(int i=0;i<getMaara();i++){
+            if(kortit[i].getArvo() > kasi.getKortti(i).getArvo() || (kortit[i].getArvo() == 0 && kasi.getKortti(i).getArvo() != 0)){
+                return 1;
+            } else if(kortit[i].getArvo() < kasi.getKortti(i).getArvo()|| (kortit[i].getArvo() != 0 && kasi.getKortti(i).getArvo() == 0)){
+                return -1;
+            }
+        }
+        return 0;
     }
 }

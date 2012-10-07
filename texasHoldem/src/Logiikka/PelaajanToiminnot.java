@@ -1,6 +1,6 @@
 package Logiikka;
 
-import Käyttöliittymä.Pelipöytä;
+import Kayttoliittyma.Pelipoyta;
 import Logiikka.Pelaaja;
 import Logiikka.Peli;
 import java.util.Scanner;

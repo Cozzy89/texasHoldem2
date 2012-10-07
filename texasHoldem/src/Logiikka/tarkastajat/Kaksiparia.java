@@ -4,9 +4,6 @@
  */
 package Logiikka.tarkastajat;
 
-import Logiikka.Kasi;
-import Logiikka.Poyta;
-
 /**
  *
  * @author Teemu
@@ -16,34 +13,25 @@ public class Kaksiparia implements Tarkistettava {
     public static final int ARVO = 3;
 
     @Override
-    public int[] tarkista(int[] maarat, TarkastettavaKasi kasi) {
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
         int[] parit = new int[2];
-        int[] arvot = new int[6];
-        parit[0] = Tarkastaja.tarkistaMaaralla(maarat, 2, maarat.length-1);
+        parit[0] = Tarkastaja.tarkistaMaaralla(maarat, 2, maarat.length - 1);
         if (parit[0] != -1) {
-            parit[1] = Tarkastaja.tarkistaMaaralla(maarat, 2,  parit[0] - 1);
+            parit[1] = Tarkastaja.tarkistaMaaralla(maarat, 2, parit[0] - 1);
             if (parit[1] != -1) {
                 jarjesta(parit, kasi);
-                arvot[0] = ARVO;
-                arvot[1] = kasi.getKortti(0).getArvo();
-                arvot[2] = kasi.getKortti(2).getArvo();
-                arvot[3] = kasi.getKortti(4).getArvo();
-                return arvot;
+                return ARVO;
             }
         }
-        arvot[0] = 0;
-        return arvot;
+        return 0;
     }
 
     public static void jarjesta(int[] parit, TarkastettavaKasi kasi) {
         kasi.siirraArvollaAlkuun(parit[1]);
         kasi.siirraArvollaAlkuun(parit[0]);
         kasi.jarjestaArvollaSuurimmastaPienimpaan(4);
-        if(kasi.getKortti(kasi.getMaara()-1).getArvo()==0){
-            for(int i=kasi.getMaara()-1; i>4; i--){
-                kasi.siirra(i, i-1);
-            }
+        if (kasi.getKortti(kasi.getMaara() - 1).getArvo() == 0) {
+            kasi.vaihdaPaikat(kasi.getMaara() - 1, 4);
         }
-        
     }
 }

@@ -4,38 +4,29 @@
  */
 package Logiikka.tarkastajat;
 
-import Logiikka.Kasi;
-import Logiikka.Poyta;
-
 /**
  *
  * @author Teemu
  */
 public class Kolmoset implements Tarkistettava {
+
     public static final int ARVO = 4;
+
     @Override
-    public int[] tarkista(int[] maarat, TarkastettavaKasi kasi){
-        int kolmoset = Tarkastaja.tarkistaMaaralla(maarat, 3, maarat.length-1);
-        int[] arvot = new int[6];
-        if( kolmoset != -1){
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
+        int kolmoset = Tarkastaja.tarkistaMaaralla(maarat, 3, maarat.length - 1);
+        if (kolmoset != -1) {
             jarjesta(kolmoset, kasi);
-            arvot[0] = ARVO;
-            arvot[1] = kasi.getKortti(0).getArvo();
-            arvot[2] = kasi.getKortti(3).getArvo();
-            arvot[3] = kasi.getKortti(4).getArvo();
-            return arvot;
+            return ARVO;
         }
-        arvot[0] = 0;
-        return arvot;
+        return 0;
     }
-    
-    public static void jarjesta(int kolmoset, TarkastettavaKasi kasi){
+
+    public static void jarjesta(int kolmoset, TarkastettavaKasi kasi) {
         kasi.siirraArvollaAlkuun(kolmoset);
         kasi.jarjestaArvollaSuurimmastaPienimpaan(3);
-        if(kasi.getKortti(kasi.getMaara()-1).getArvo()==0){
-            for(int i=kasi.getMaara()-1; i>3; i--){
-                kasi.siirra(i, i-1);
-            }
+        if (kasi.getKortti(kasi.getMaara() - 1).getArvo() == 0) {
+            kasi.siirra(kasi.getMaara() - 1, 3);
         }
     }
 }

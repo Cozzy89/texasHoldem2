@@ -13,10 +13,9 @@ public class Varisuora implements Tarkistettava {
     public static final int ARVO = 9;
 
     @Override
-    public int[] tarkista(int[] maarat, TarkastettavaKasi kasi) {
+    public int tarkista(int[] maarat, TarkastettavaKasi kasi) {
         int loytynyt = 0;
         int maara = 0;
-        int[] arvot = new int[6];
         kasi.jarjestaArvollaSuurimmastaPienimpaan();
         for (int i = 0; i < kasi.getMaara()-1; i++) {
             if (kasi.getKortti(i).getArvo() - 1 == kasi.getKortti(i+1).getArvo() && kasi.getKortti(i).getMaa() == kasi.getKortti(i+1).getMaa()) {
@@ -42,14 +41,11 @@ public class Varisuora implements Tarkistettava {
         if (maara == 5) {
             Suora.jarjesta(kasi);
             if (kasi.getKortti(4).getArvo() == 1) {
-                arvot[0] = Kuningasvarisuora.ARVO;
-                return arvot;
+                return Kuningasvarisuora.ARVO;
             }
-            arvot[0] = ARVO;
-            return arvot;
+            return ARVO;
         }
-        arvot[0] = 0;
-        return arvot;
+        return 0;
     }
 
 }
