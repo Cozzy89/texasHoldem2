@@ -18,58 +18,60 @@ public class Peli {
 
     Pakka pakka;
     Poyta poyta;
-    Pelipoyta pelipöytä;
+    Pelipoyta pelipoyta;
     private ArrayList<Pelaaja> pelaajat = new ArrayList<Pelaaja>();
     TodennakoisyysTarkistaja todTar;
     Kortti kortti;
     int valinta;
     int korotus;
     int potti;
-    Tarkastaja tarkistaja;
+    public Tarkastaja tarkistaja = new Tarkastaja();
     PelaajanToiminnot toiminto;
     int kierrosluku = 0;
-    final int Floppi = 3;
-    final int Turn = 1;
-    final int River = 1;
+    private final int Floppi = 3;
+    private final int Turn = 1;
+    private final int River = 1;
     TodennakoisyysTarkistaja tnTarkistaja = new TodennakoisyysTarkistaja();
-    int voittoLaskuriPelaaja;
-    int voittoLaskuriKone;
-    final int isoBlindi = 20;
-    final int pieniBlindi = 40;
-    int voittaja;
-    
-    
+    public int voittoLaskuriPelaaja;
+    public int voittoLaskuriKone;
+    private final int isoBlindi = 40;
+    private final int pieniBlindi = 20;
+    public int voittaja;
+    Pelaaja[] vuoro = new Pelaaja[2];
+
     public Peli(Pelipoyta pelipöytä) {
-        this.pelipöytä = pelipöytä;
+        this.pelipoyta = pelipöytä;
         Pelaaja ihminen = new Pelaaja(1000, "Pelaaja");
         pelaajat.add(ihminen);
         Pelaaja kone = new Pelaaja(1000, "Kone");
         pelaajat.add(kone);
+        vuoro[0] = ihminen;
+        vuoro[1] = kone;
         pelaa();
     }
 
     public void pelaa() {
         voittoLaskuriKone = 0;
         voittoLaskuriPelaaja = 0;
-        System.out.println("Tervetuloa pelaamaan Texas Holdem No limit heads uppia konetta vastaan!");
+        System.out.println("Tervetuloa pelaamaan Texas Holdem No limit heads uppia konetta vastaan! Iso blindi on 40 ja pieni 20.");
+        System.out.println("");
         uusiKasi();
         peli:
         while (true) {
-            System.out.println("");
-            tulostaKasiPelaaja(pelaajat.get(0).getKasi(), pelaajat.get(0));
+            pelipoyta.tulostaKasiPelaaja(pelaajat.get(0).getKasi(), pelaajat.get(0));
             System.out.println("");
             tulostaRahat();
-            
+            pelipoyta.tulostaPotti(potti);
             if (pelaajat.get(0).getRaha() > 0 && pelaajat.get(1).getRaha() > 0) {
                 while (!pelaajat.get(0).getToimi() || !pelaajat.get(1).getToimi()) {
-                    
+
                     for (int i = 0; i < 2; i++) {
-                       if (montaPelaajaa() == 1) {
+                        if (montaPelaajaa() == 1) {
                             jaaPotti(pelaajat);
                             nollaaPotti();
                             nollaaKorotus();
 
-                            if (pelaajat.get(0).getRaha() == 0 || pelaajat.get(1).getRaha() == 0) {
+                            if (vuoro[0].getRaha() == 0 || vuoro[1].getRaha() == 0) {
                                 if (pelaajat.get(1).getRaha() == 0) {
                                     System.out.println("Peli päättyi! VOITIT!");
                                 }
@@ -78,64 +80,61 @@ public class Peli {
                                 }
                                 return;
                             } else {
-                                if (pelaajat.get(0).getLuovuta()) {
-                                    voittoLaskuriKone++;
-
-                                } else {
-                                    voittoLaskuriPelaaja++;
+                                if (vuoro[0].getLuovuta()) {
+                                    if (vuoro[0] == pelaajat.get(0)) {
+                                        voittoLaskuriKone++;
+                                    } else {
+                                        voittoLaskuriPelaaja++;
+                                    }
                                 }
-                                //      tulostaRahat(); 
+                                if (vuoro[1].getLuovuta()) {
+                                    if (vuoro[1] == pelaajat.get(0)) {
+                                        voittoLaskuriKone++;
+                                    } else {
+                                        voittoLaskuriPelaaja++;
+                                    }
+                                }
+                                tulostaRahat();
+                                vuoronVaihto();
                                 uusiKasi();
-                                tulostaTilanne();
+                                pelipoyta.tulostaTilanne(this);
+                                System.out.println("");
                             }
+
                             continue peli;
                         }
-                        if (pelaajat.get(0).getLuovuta()) {
-                            voittoLaskuriKone++;
-                            uusiKasi();
-                            tulostaTilanne();
-                            continue peli;
-                        }
-                        if (pelaajat.get(1).getLuovuta()) {
-                            voittoLaskuriPelaaja++;
-                            uusiKasi();
-                            tulostaTilanne();
-                            continue peli;
-                        }
-                        if (!pelaajat.get(i).getToimi()){
-                            if (!pelaajat.get(0).getToimi()) {
+
+                        if (!vuoro[i].getToimi()) {
+                            if (vuoro[i] == pelaajat.get(0)) {
                                 toimintoPelaaja(pelaajat.get(0));
                                 System.out.println("");
-                            }  
-                            if (!pelaajat.get(1).getToimi()) {
+                            } else {
                                 toimintoKone(pelaajat.get(1));
                             }
                         }
 
                     }
                 }
-                System.out.println("");
-                tulostaPotti(potti);
                 nollaaKorotus();
             }
             System.out.println("");
             if (kierrosluku == 0) {
                 jaaKortitPoydalle(Floppi);
-                tulostaPoytaKortit(3);
+                pelipoyta.tulostaPoytaKortit(3, poyta);
             }
             if (kierrosluku == 1) {
                 jaaKortitPoydalle(Turn);
-                tulostaPoytaKortit(4);
+                pelipoyta.tulostaPoytaKortit(4, poyta);
             }
             if (kierrosluku == 2) {
                 jaaKortitPoydalle(River);
-                tulostaPoytaKortit(5);
+                pelipoyta.tulostaPoytaKortit(5, poyta);
             }
             nollaaToiminnot(pelaajat.get(0));
             nollaaToiminnot(pelaajat.get(1));
             kierrosluku++;
             if (kierrosluku == 4) {
-                tulostaKierrosAnalyysi(pelaajat.get(0), pelaajat.get(1));
+                pelipoyta.tulostaKierrosAnalyysi(pelaajat.get(0), pelaajat.get(1), poyta, this);
                 System.out.println("");
                 if (pelaajat.get(0).getRaha() == 0 || pelaajat.get(1).getRaha() == 0) {
                     if (pelaajat.get(1).getRaha() == 0) {
@@ -146,8 +145,10 @@ public class Peli {
                     }
                     return;
                 } else {
+                    vuoronVaihto();
                     uusiKasi();
-                    tulostaTilanne();
+                    pelipoyta.tulostaTilanne(this);
+                    System.out.println("");
                 }
             }
 
@@ -157,26 +158,10 @@ public class Peli {
 
     }
 
-    public void tulostaPotti(int maara) {
-        System.out.println("Potissa on: " + maara);
-
-    }
-
     /**
      *
      * @param pelaaja
      */
-    public void tulostaKasi(TarkastettavaKasi kasi, Pelaaja pelaaja) {
-
-        System.out.print(pelaaja.getNimi() + ": ");
-        for (int i = 0; i < kasi.getMaara(); i++) {
-            Kortti kortti = kasi.getKortti(i);
-            System.out.print((i != 0 ? "," : "") + Kortti.korttiArvot[kortti.getArvo()] + kortti.getMaa(true));
-        }
-
-
-    }
-
     public Kortti annaTiettyKortti(int arvo, int maa) {
         Kortti kortti = new Kortti(arvo, maa);
         return kortti;
@@ -224,9 +209,11 @@ public class Peli {
         }
         if (valinta == 2) {
             PelaajanToiminnot.checkMaksu(pelaaja, this);
+            System.out.println("Pelaaja check.");
         }
         if (valinta == 3) {
             PelaajanToiminnot.luovuta(pelaaja);
+            System.out.println("Pelaaja fold. Tilanne:");
         }
 
     }
@@ -242,9 +229,12 @@ public class Peli {
         }
         if (valinta == 2) {
             PelaajanToiminnot.checkMaksu(pelaaja, this);
+            System.out.println("KONE CHECK.");
         }
         if (valinta == 3) {
             PelaajanToiminnot.luovuta(pelaaja);
+            System.out.println("");
+            System.out.println("KONE FOLD. Tilanne: ");
         }
     }
 
@@ -302,8 +292,10 @@ public class Peli {
         nollaaKadet();
         uusiPakka();
         uusiPoyta();
+        otaBlindit();
         jaaKortit();
         jaaKortit();
+
     }
 
     /**
@@ -312,12 +304,13 @@ public class Peli {
     public void tulostaKadet() {
 
         for (Pelaaja p : pelaajat) {
-            tulostaKasiPelaaja(p.getKasi(), p);
+            pelipoyta.tulostaKasiPelaaja(p.getKasi(), p);
         }
     }
-    public void tulostaLopullinenKasi(){
-        for(Pelaaja p : pelaajat){
-            tulostaLopullinenKasiPelaaja(p.getKasi(), poyta, p);
+
+    public void tulostaLopullinenKasi() {
+        for (Pelaaja p : pelaajat) {
+            pelipoyta.tulostaLopullinenKasiPelaaja(p.getKasi(), poyta, p, this);
         }
     }
 
@@ -335,8 +328,9 @@ public class Peli {
      */
     public void tarkistaVoittaja() {
         TarkastettavaKasi kasi1 = new TarkastettavaKasi(pelaajat.get(0).getKasi(), poyta);
+        tarkistaja.tarkistaKasi(kasi1);
         TarkastettavaKasi kasi2 = new TarkastettavaKasi(pelaajat.get(1).getKasi(), poyta);
-        tarkistaja = new Tarkastaja();
+        tarkistaja.tarkistaKasi(kasi2);
         int kumpiVoitti = kasi1.vertaa(kasi2);
         ArrayList<Pelaaja> voittajat = new ArrayList<Pelaaja>();
         if (kumpiVoitti == 1) {
@@ -361,9 +355,8 @@ public class Peli {
      */
     public void tulostaRahat() {
         for (Pelaaja p : pelaajat) {
-            pelipöytä.tulostaRaha(p);
+            pelipoyta.tulostaRaha(p);
         }
-        System.out.println("");
     }
 
     /**
@@ -500,52 +493,16 @@ public class Peli {
         poyta = new Poyta(5);
     }
 
-    public void tulostaPoytaKortit(int montako) {
-        System.out.print("Pöytä: ");
-        for (int i = 0; i < montako; i++) {
-            Kortti kortti = poyta.getKortti(i);
-            System.out.print((i != 0 ? "," : "") + Kortti.korttiArvot[kortti.getArvo()] + kortti.getMaa(true));
-        }
-        System.out.println("");
-
-
+    public void otaBlindit() {
+        vuoro[0].vahennaRaha(pieniBlindi);
+        vuoro[1].vahennaRaha(isoBlindi);
+        potti = potti + pieniBlindi + isoBlindi;
     }
 
-    public void tulostaKasiPelaaja(Kasi kasi, Pelaaja pelaaja) {
-        System.out.print(pelaaja.getNimi() + ": ");
-        for (int i = 0; i < kasi.getMaara(); i++) {
-            Kortti kortti = kasi.getKortti(i);
-            System.out.print((i != 0 ? "," : "") + Kortti.korttiArvot[kortti.getArvo()] + kortti.getMaa(true));
-        }
-        System.out.println();
+    public void vuoronVaihto() {
+        Pelaaja pelaaja = vuoro[0];
+        Pelaaja kone = vuoro[1];
+        vuoro[0] = kone;
+        vuoro[1] = pelaaja;
     }
-    public void tulostaLopullinenKasiPelaaja(Kasi kasi, Poyta poyta, Pelaaja pelaaja){
-        System.out.print(pelaaja.getNimi()+ ": ");
-        TarkastettavaKasi tarKasi = new TarkastettavaKasi(kasi, poyta);
-        tarkistaja.tarkistaKasi(tarKasi);
-        System.out.print(Tarkastaja.tekstiArvoille[tarKasi.getArvo()]);
-        System.out.println(", korkein kortti "+ Kortti.korttiArvot[tarKasi.getKortti(0).getArvo()]);
-    }
-    
-    public void tulostaTilanne(){
-        System.out.println("Pelaajan voitot: " + voittoLaskuriPelaaja + ", Koneen voitot: " + voittoLaskuriKone);
-    }
-    
-    public void tulostaKierrosAnalyysi(Pelaaja pelaaja, Pelaaja kone){
-        System.out.println("Kierroksen tulokset:");
-        tarkistaVoittaja();
-        tulostaKadet();
-        tulostaPoytaKortit(5);
-        tulostaLopullinenKasi();
-        if(voittaja == 1){
-            System.out.println("Pelaaja voitti.");
-        }
-        if(voittaja == -1){
-            System.out.println("Kone voitti.");
-        }
-        if(voittaja == 0){
-            System.out.println("Tasapeli.");
-        }
-    }
-
 }

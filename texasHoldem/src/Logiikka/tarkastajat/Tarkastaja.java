@@ -32,17 +32,7 @@ public class Tarkastaja {
             }
         }
     }
-//    public int[] tarkistaKasi2(TarkastettavaKasi kasi) {
-//        int[] maarat = new int[13];
-//        haeSamojenKorttienMaarat(maarat, kasi);
-//        for (int i = 0; i < tarkistettavat.length; i++) {
-//            kasi.setArvo(tarkistettavat[i].tarkista(maarat, kasi));
-//            if (kasi.getArvo() != 0) {
-//                return kasi.getArvot();
-//            }
-//        }
-//        return kasi.getArvot();
-//    }
+
 
     private void haeSamojenKorttienMaarat(int[] maarat, TarkastettavaKasi kasi) {
         for (int i = 0; i < kasi.getMaara(); i++) {
@@ -58,16 +48,5 @@ public class Tarkastaja {
         }
         return -1;
     }
-//    public int vertaaArvot(TarkastettavaKasi kasi1, TarkastettavaKasi kasi2) {
-//            for(int i=0; i<6; i++){
-//            if(tarkistaKasi2(kasi1)[i] > tarkistaKasi2(kasi2)[i]){
-//                return 1;
-//            }
-//            else if(tarkistaKasi2(kasi1)[i] != tarkistaKasi2(kasi2)[i]){
-//                return -1;
-//            }
-//        }
-//        return 0;
-//   
-//}
+
 }

@@ -153,11 +153,16 @@ public class TarkastettavaKasi {
     
     private int vertaaKortit(TarkastettavaKasi kasi){
         for(int i=0;i<getMaara();i++){
-            if(kortit[i].getArvo() > kasi.getKortti(i).getArvo() || (kortit[i].getArvo() == 0 && kasi.getKortti(i).getArvo() != 0)){
+            if((kortit[i].getArvo() == 0 && kasi.getKortti(i).getArvo() != 0)){
                 return 1;
-            } else if(kortit[i].getArvo() < kasi.getKortti(i).getArvo()|| (kortit[i].getArvo() != 0 && kasi.getKortti(i).getArvo() == 0)){
+            } else if((kortit[i].getArvo() != 0 && kasi.getKortti(i).getArvo() == 0)){
                 return -1;
+            } else if(kortit[i].getArvo() < kasi.getKortti(i).getArvo()){
+                return -1;
+            } else if(kortit[i].getArvo() > kasi.getKortti(i).getArvo()){
+                return 1;
             }
+            
         }
         return 0;
     }
